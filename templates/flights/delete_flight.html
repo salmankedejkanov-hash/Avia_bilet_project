@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<h1>Delete Flight</h1>
+
+<p>
+    Are you sure?
+</p>
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <button type="submit">
+        Delete
+    </button>
+
+</form>

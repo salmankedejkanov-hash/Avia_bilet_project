@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mb-4">
+    Bookings
+</h1>
+
+<a
+    href="/bookings/create/"
+    class="btn btn-primary mb-3"
+>
+    Create Booking
+</a>
+
+{% for booking in bookings %}
+
+<div class="card mb-3">
+
+    <div class="card-body">
+
+        <h5>
+            {{ booking.user }}
+        </h5>
+
+        <p>
+            {{ booking.flight }}
+        </p>
+
+        <p>
+            Seat:
+            {{ booking.seat_number }}
+        </p>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<p>No bookings found.</p>
+
+{% endfor %}
+
+{% endblock %}

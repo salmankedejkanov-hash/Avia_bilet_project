@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <h1>
+
+            {{ flight.departure_airport.city }}
+            →
+            {{ flight.arrival_airport.city }}
+
+        </h1>
+
+        <hr>
+
+        <p>
+            <strong>Airline:</strong>
+            {{ flight.airline }}
+        </p>
+
+        <p>
+            <strong>Departure:</strong>
+            {{ flight.departure_time }}
+        </p>
+
+        <p>
+            <strong>Arrival:</strong>
+            {{ flight.arrival_time }}
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            ${{ flight.price }}
+        </p>
+
+        <p>
+            <strong>Available seats:</strong>
+            {{ flight.seats }}
+        </p>
+
+        <a
+            href="/bookings/create/"
+            class="btn btn-success"
+        >
+            Book Ticket
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
