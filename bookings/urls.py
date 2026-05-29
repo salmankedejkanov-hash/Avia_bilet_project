@@ -1,25 +1,13 @@
-from django.urls import path
-
 from . import views
-
+from django.urls import path
+from .views import my_bookings
 
 urlpatterns = [
+    path('my/', my_bookings, name='my_bookings'),
+]
 
-    path(
-        '',
-        views.booking_list,
-        name='booking_list'
-    ),
-
-    path(
-        'my/',
-        views.my_bookings,
-        name='my_bookings'
-    ),
-
-    path(
-        'create/',
-        views.create_booking,
-        name='create_booking'
-    ),
+urlpatterns = [
+    path('', views.flight_list, name='flight_list'),
+    path('<int:pk>/', views.flight_detail, name='flight_detail'),
+    path('<int:pk>/book/', views.book_flight, name='book_flight'),
 ]

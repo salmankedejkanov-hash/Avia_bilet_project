@@ -2,84 +2,17 @@
 
 {% block content %}
 
-<div class="card shadow-lg border-0 animation-fade">
+<h1>Детали рейса</h1>
 
-    <div class="card-body p-5">
+<div class="card p-4">
 
-        <div class="row align-items-center">
+    <h3>
+        {{ flight.departure_airport.city }} → {{ flight.arrival_airport.city }}
+    </h3>
 
-            <div class="col-md-8">
+    <p>Цена: {{ flight.price }}</p>
 
-                <h1 class="mb-4">
-
-                    {{ flight.departure_airport.city }}
-                    →
-                    {{ flight.arrival_airport.city }}
-
-                </h1>
-
-                <p class="fs-5">
-
-                    <strong>Airline:</strong>
-                    {{ flight.airline }}
-
-                </p>
-
-                <p class="fs-5">
-
-                    <strong>Departure:</strong>
-                    {{ flight.departure_time }}
-
-                </p>
-
-                <p class="fs-5">
-
-                    <strong>Arrival:</strong>
-                    {{ flight.arrival_time }}
-
-                </p>
-
-                <p class="fs-5">
-
-                    <strong>Seats:</strong>
-                    {{ flight.seats }}
-
-                </p>
-
-                <p class="fs-5">
-
-                    <strong>Status:</strong>
-
-                    <span class="badge bg-success">
-
-                        {{ flight.status }}
-
-                    </span>
-
-                </p>
-
-            </div>
-
-            <div class="col-md-4 text-center">
-
-                <div class="flight-price mb-4">
-
-                    ${{ flight.price }}
-
-                </div>
-
-                <a
-                    href="/bookings/create/"
-                    class="btn btn-success btn-lg"
-                >
-                    Book Ticket
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
+    <p>Авиакомпания: {{ flight.airline }}</p>
 
 </div>
 

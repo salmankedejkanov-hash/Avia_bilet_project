@@ -6,7 +6,7 @@
 
 <form method="GET" class="mb-3">
 
-    <input type="text" name="search" placeholder="Поиск города" class="form-control">
+    <input type="text" name="search" class="form-control" placeholder="Поиск города">
 
 </form>
 
@@ -22,9 +22,7 @@
                 {{ flight.departure_airport.city }} → {{ flight.arrival_airport.city }}
             </h4>
 
-            <p>Авиакомпания: {{ flight.airline }}</p>
-
-            <p>Цена: ${{ flight.price }}</p>
+            <p>Цена: {{ flight.price }}</p>
 
             <a href="/flights/{{ flight.id }}/" class="btn btn-primary">
                 Подробнее
@@ -36,10 +34,14 @@
 
 {% empty %}
 
-    <p>Рейсы не найдены</p>
+    <p>Нет рейсов</p>
 
 {% endfor %}
 
 </div>
 
 {% endblock %}
+
+<a href="/flights/{{ flight.id }}/book/" class="btn btn-success">
+    Забронировать
+</a>
