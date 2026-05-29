@@ -1,46 +1,62 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 
 {% block content %}
 
-<h1 class="mb-4">
-    Bookings
+<h1 class="section-title">
+    Flight Reservations
 </h1>
 
-<a
-    href="/bookings/create/"
-    class="btn btn-primary mb-3"
->
-    Create Booking
-</a>
+<div class="card shadow-sm border-0">
 
-{% for booking in bookings %}
+    <div class="card-body p-4">
 
-<div class="card mb-3">
+        <table class="table table-hover">
 
-    <div class="card-body">
+            <thead>
 
-        <h5>
-            {{ booking.user }}
-        </h5>
+                <tr>
 
-        <p>
-            {{ booking.flight }}
-        </p>
+                    <th>User</th>
+                    <th>Flight</th>
+                    <th>Seat</th>
+                    <th>Status</th>
 
-        <p>
-            Seat:
-            {{ booking.seat_number }}
-        </p>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for booking in bookings %}
+
+                <tr>
+
+                    <td>
+                        {{ booking.user.username }}
+                    </td>
+
+                    <td>
+                        {{ booking.flight }}
+                    </td>
+
+                    <td>
+                        {{ booking.seat_number }}
+                    </td>
+
+                    <td>
+                        {{ booking.status }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
 
     </div>
 
 </div>
-
-{% empty %}
-
-<p>No bookings found.</p>
-
-{% endfor %}
 
 {% endblock %}

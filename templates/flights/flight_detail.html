@@ -1,53 +1,83 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 
 {% block content %}
 
-<div class="card shadow">
+<div class="card shadow-lg border-0 animation-fade">
 
-    <div class="card-body">
+    <div class="card-body p-5">
 
-        <h1>
+        <div class="row align-items-center">
 
-            {{ flight.departure_airport.city }}
-            →
-            {{ flight.arrival_airport.city }}
+            <div class="col-md-8">
 
-        </h1>
+                <h1 class="mb-4">
 
-        <hr>
+                    {{ flight.departure_airport.city }}
+                    →
+                    {{ flight.arrival_airport.city }}
 
-        <p>
-            <strong>Airline:</strong>
-            {{ flight.airline }}
-        </p>
+                </h1>
 
-        <p>
-            <strong>Departure:</strong>
-            {{ flight.departure_time }}
-        </p>
+                <p class="fs-5">
 
-        <p>
-            <strong>Arrival:</strong>
-            {{ flight.arrival_time }}
-        </p>
+                    <strong>Airline:</strong>
+                    {{ flight.airline }}
 
-        <p>
-            <strong>Price:</strong>
-            ${{ flight.price }}
-        </p>
+                </p>
 
-        <p>
-            <strong>Available seats:</strong>
-            {{ flight.seats }}
-        </p>
+                <p class="fs-5">
 
-        <a
-            href="/bookings/create/"
-            class="btn btn-success"
-        >
-            Book Ticket
-        </a>
+                    <strong>Departure:</strong>
+                    {{ flight.departure_time }}
+
+                </p>
+
+                <p class="fs-5">
+
+                    <strong>Arrival:</strong>
+                    {{ flight.arrival_time }}
+
+                </p>
+
+                <p class="fs-5">
+
+                    <strong>Seats:</strong>
+                    {{ flight.seats }}
+
+                </p>
+
+                <p class="fs-5">
+
+                    <strong>Status:</strong>
+
+                    <span class="badge bg-success">
+
+                        {{ flight.status }}
+
+                    </span>
+
+                </p>
+
+            </div>
+
+            <div class="col-md-4 text-center">
+
+                <div class="flight-price mb-4">
+
+                    ${{ flight.price }}
+
+                </div>
+
+                <a
+                    href="/bookings/create/"
+                    class="btn btn-success btn-lg"
+                >
+                    Book Ticket
+                </a>
+
+            </div>
+
+        </div>
 
     </div>
 

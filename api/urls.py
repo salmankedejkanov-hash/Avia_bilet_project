@@ -15,6 +15,16 @@ urlpatterns = [
         name='booking_api'
     ),
     path(
+        'flights/<int:pk>/',
+        views.flight_detail_api,
+        name='flight_detail_api'
+    ),
+    path(
+        'bookings/create/',
+        views.booking_create_api,
+        name='booking_create_api'
+    ),
+    path(
         'flights/',
         views.flight_api,
         name='flight_api'

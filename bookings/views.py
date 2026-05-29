@@ -1,9 +1,14 @@
-from django.shortcuts import render
-from .models import Booking
 from django.shortcuts import render, redirect
+
+from django.contrib.auth.decorators import login_required
+
+from django.contrib import messages
+
 from .models import Booking
 from .forms import BookingForm
 
+
+@login_required
 def booking_list(request):
 
     bookings = Booking.objects.all()
@@ -17,6 +22,27 @@ def booking_list(request):
         'bookings/booking_list.html',
         context
     )
+
+
+@login_required
+def my_bookings(request):
+
+    bookings = Booking.objects.filter(
+        user=request.user
+    )
+
+    context = {
+        'bookings': bookings
+    }
+
+    return render(
+        request,
+        'bookings/my_bookings.html',
+        context
+    )
+
+
+@login_required
 def create_booking(request):
 
     form = BookingForm(
@@ -33,9 +59,9 @@ def create_booking(request):
 
         if booking.flight.seats <= 0:
 
-            form.add_error(
-                None,
-                "No available seats."
+            messages.error(
+                request,
+                'No available seats.'
             )
 
         else:
@@ -48,8 +74,13 @@ def create_booking(request):
 
             flight.save()
 
+            messages.success(
+                request,
+                'Ticket booked successfully.'
+            )
+
             return redirect(
-                'booking_list'
+                'my_bookings'
             )
 
     context = {

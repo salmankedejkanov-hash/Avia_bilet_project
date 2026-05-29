@@ -1,120 +1,45 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 
 {% block content %}
 
-<h1 class="mb-4">
-    Flights
-</h1>
-<a
-    href="/flights/{{ flight.id }}/"
-    class="btn btn-info"
->
-    Details
-</a>
-<a
-    href="/flights/create/"
-    class="btn btn-primary mb-3"
->
-    Add Flight
-</a>
+<h1>Рейсы</h1>
 
-<form method="GET">
+<form method="GET" class="mb-3">
 
-    <input
-        type="text"
-        name="search"
-        placeholder="Search city..."
-        class="form-control mb-3"
-    >
+    <input type="text" name="search" placeholder="Поиск города" class="form-control">
 
 </form>
 
-{% for flight in page_obj %}
-<div class="mt-4">
+<div class="row">
 
-    {% if page_obj.has_previous %}
+{% for flight in flights %}
 
-        <a
-            href="?page=1"
-            class="btn btn-secondary"
-        >
-            First
-        </a>
+    <div class="col-md-6 mb-3">
 
-    {% endif %}
+        <div class="card p-3">
 
-    <span class="mx-2">
+            <h4>
+                {{ flight.departure_airport.city }} → {{ flight.arrival_airport.city }}
+            </h4>
 
-        Page
-        {{ page_obj.number }}
+            <p>Авиакомпания: {{ flight.airline }}</p>
 
-        of
-        {{ page_obj.paginator.num_pages }}
+            <p>Цена: ${{ flight.price }}</p>
 
-    </span>
+            <a href="/flights/{{ flight.id }}/" class="btn btn-primary">
+                Подробнее
+            </a>
 
-    {% if page_obj.has_next %}
-
-        <a
-            href="?page={{ page_obj.next_page_number }}"
-            class="btn btn-secondary"
-        >
-            Next
-        </a>
-
-    {% endif %}
-
-</div>
-
-<div class="card mb-3">
-
-    <div class="card-body">
-
-        <h4>
-            {{ flight.departure_airport.city }}
-            →
-            {{ flight.arrival_airport.city }}
-        </h4>
-
-        <p>
-            Airline:
-            {{ flight.airline }}
-        </p>
-
-        <p>
-            Price:
-            ${{ flight.price }}
-        </p>
-
-        <p>
-            Seats:
-            {{ flight.seats }}
-        </p>
-
-        <a
-            href="/flights/{{ flight.id }}/update/"
-            class="btn btn-warning"
-        >
-            Edit
-        </a>
-
-        <a
-            href="/flights/{{ flight.id }}/delete/"
-            class="btn btn-danger"
-        >
-            Delete
-        </a>
+        </div>
 
     </div>
 
-</div>
-
 {% empty %}
 
-<p>No flights found.</p>
+    <p>Рейсы не найдены</p>
 
 {% endfor %}
 
-{% endblock %}
+</div>
 
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="section-title">
+    My Tickets
+</h1>
+
+<div class="row">
+
+{% for booking in bookings %}
+
+<div class="col-md-6 mb-4">
+
+    <div class="card shadow-sm animation-fade">
+
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between">
+
+                <div>
+
+                    <h3>
+
+                        {{ booking.flight.departure_airport.city }}
+
+                    </h3>
+
+                    <p class="text-muted">
+                        Departure
+                    </p>
+
+                </div>
+
+                <div class="text-center">
+
+                    <h2>
+                        ✈
+                    </h2>
+
+                </div>
+
+                <div class="text-end">
+
+                    <h3>
+
+                        {{ booking.flight.arrival_airport.city }}
+
+                    </h3>
+
+                    <p class="text-muted">
+                        Arrival
+                    </p>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <p>
+
+                <strong>Airline:</strong>
+                {{ booking.flight.airline }}
+
+            </p>
+
+            <p>
+
+                <strong>Seat:</strong>
+                {{ booking.seat_number }}
+
+            </p>
+
+            <p>
+
+                <strong>Status:</strong>
+                {{ booking.status }}
+
+            </p>
+
+            <div class="flight-price mt-3">
+
+                ${{ booking.flight.price }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="alert alert-warning">
+
+    No tickets booked yet.
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
