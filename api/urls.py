@@ -1,32 +1,11 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import FlightViewSet, BookingViewSet
 
-from . import views
-
+router = DefaultRouter()
+router.register(r'flights', FlightViewSet)
+router.register(r'bookings', BookingViewSet)
 
 urlpatterns = [
-    path(
-        '',
-        views.api_root,
-        name='api_root'
-    ),
-    path(
-        'bookings/',
-        views.booking_api,
-        name='booking_api'
-    ),
-    path(
-        'flights/<int:pk>/',
-        views.flight_detail_api,
-        name='flight_detail_api'
-    ),
-    path(
-        'bookings/create/',
-        views.booking_create_api,
-        name='booking_create_api'
-    ),
-    path(
-        'flights/',
-        views.flight_api,
-        name='flight_api'
-    ),
+    path('', include(router.urls)),
 ]

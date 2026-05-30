@@ -1,39 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Мои бронирования</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+{% extends 'base.html' %}
 
-<a href="/bookings/cancel/{{ b.id }}/" class="btn btn-danger btn-sm">
-    Отменить
-</a>
+{% block content %}
 
-<a href="/bookings/ticket/{{ b.id }}/" class="btn btn-primary btn-sm">
-    Скачать билет
-</a>
+<h2 class="mb-4">📌 Мои бронирования</h2>
 
-<body class="container mt-4">
-
-<h1>Мои бронирования 🎟</h1>
-
-<a href="/flights/" class="btn btn-secondary mb-3">← Назад к рейсам</a>
+<div class="row">
 
 {% for b in bookings %}
-    <div class="card p-3 mb-3">
-        <h4>{{ b.flight.origin }} → {{ b.flight.destination }}</h4>
 
-        <p>Цена: {{ b.flight.price }} $</p>
-        <p>Дата брони: {{ b.created_at }}</p>
-        <p>Статус: {{ b.status }}</p>
+<div class="col-md-4 mb-3">
+    <div class="card p-3 shadow-sm">
 
-        <a href="/flights/{{ b.flight.id }}/" class="btn btn-primary">
-            Посмотреть рейс
-        </a>
+        <h5>✈ {{ b.flight.origin }} → {{ b.flight.destination }}</h5>
+
+        <p>💰 {{ b.flight.price }}</p>
+
+        {% if b.is_paid %}
+            <span style="color:green;">✔ Оплачено</span>
+        {% else %}
+            <span style="color:red;">❌ Не оплачено</span>
+        {% endif %}
+
     </div>
+</div>
+
 {% empty %}
-    <p>У вас пока нет бронирований</p>
+    <p>У вас нет бронирований</p>
 {% endfor %}
 
-</body>
-</html>
+</div>
+
+{% endblock %}
