@@ -2,32 +2,19 @@
 
 {% block content %}
 
-<h2 class="mb-4">📌 Мои бронирования</h2>
-
-<div class="row">
+<h1>Мои бронирования</h1>
 
 {% for b in bookings %}
+<div class="card">
+    <h3>{{ b.flight.origin }} → {{ b.flight.destination }}</h3>
+    <p>{{ b.full_name }}</p>
 
-<div class="col-md-4 mb-3">
-    <div class="card p-3 shadow-sm">
-
-        <h5>✈ {{ b.flight.origin }} → {{ b.flight.destination }}</h5>
-
-        <p>💰 {{ b.flight.price }}</p>
-
-        {% if b.is_paid %}
-            <span style="color:green;">✔ Оплачено</span>
-        {% else %}
-            <span style="color:red;">❌ Не оплачено</span>
-        {% endif %}
-
-    </div>
+    <a href="{% url 'cancel_booking' b.id %}">
+        Отменить
+    </a>
 </div>
-
 {% empty %}
-    <p>У вас нет бронирований</p>
+<p>Нет бронирований</p>
 {% endfor %}
-
-</div>
 
 {% endblock %}

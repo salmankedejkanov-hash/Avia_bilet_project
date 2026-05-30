@@ -50,3 +50,13 @@ class Flight(models.Model):
 
     def __str__(self):
         return f"{self.departure_airport} → {self.arrival_airport}"
+
+status = models.CharField(
+    max_length=20,
+    choices=[
+        ('on_time', 'Вылет по расписанию'),
+        ('delayed', 'Задержан'),
+        ('cancelled', 'Отменён')
+    ],
+    default='on_time'
+)

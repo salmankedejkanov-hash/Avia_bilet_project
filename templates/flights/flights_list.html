@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Рейсы</h1>
+
+{% for flight in flights %}
+<div class="card">
+    <h3>{{ flight.origin }} → {{ flight.destination }}</h3>
+    <p>{{ flight.date }}</p>
+    <p>{{ flight.price }} $</p>
+
+    <a href="{% url 'create_booking' flight.id %}">
+        Забронировать
+    </a>
+</div>
+{% endfor %}
+
+{% endblock %}

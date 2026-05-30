@@ -1,15 +1,56 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
-
+from django.db.models import Q
 from bookings.models import Booking
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from flights.models import Flight
+from django.shortcuts import render
 from .models import Flight
+from django.shortcuts import render
+from .models import Flight
+
+
+def flight_list(request):
+    flights = Flight.objects.all()
+
+    origin = request.GET.get("origin")
+    destination = request.GET.get("destination")
+
+    if origin:
+        flights = flights.filter(origin__icontains=origin)
+
+    if destination:
+        flights = flights.filter(destination__icontains=destination)
+
+    return render(request, "flights/flights_list.html", {
+        "flights": flights
+    })
+
+
+
+def flight_list(request):
+    query = request.GET.get('q')
+
+    flights = Flight.objects.all()
+
+    if query:
+        flights = flights.filter(
+            Q(origin__icontains=query) |
+            Q(destination__icontains=query)
+        )
+
+    return render(request, 'flights/flights_list.html', {
+        'flights': flights
+    })
+
+
+def flight_list(request):
+    flights = Flight.objects.all().order_by("departure_time")
+    return render(request, "flights/flights_list.html", {"flights": flights})
 
 
 @login_required
@@ -63,7 +104,7 @@ def flight_list(request):
     if max_price:
         flights = flights.filter(price__lte=max_price)
 
-    return render(request, "flights/flight_list.html", {
+    return render(request, "flights/flights_list.html", {
         "flights": flights
     })
 
@@ -122,7 +163,7 @@ def flight_list(request):
     if sort == 'expensive':
         flights = flights.order_by('-price')
 
-    return render(request, 'flights/flight_list.html', {
+    return render(request, 'flights/flights_list.html', {
         'flights': flights
     })
 
