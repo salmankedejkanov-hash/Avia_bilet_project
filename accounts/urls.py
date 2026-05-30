@@ -7,7 +7,6 @@ from .views import (
     CustomLogoutView
 )
 
-
 urlpatterns = [
 
     path(
@@ -34,3 +33,4 @@ urlpatterns = [
         name='profile'
     ),
 ]
+

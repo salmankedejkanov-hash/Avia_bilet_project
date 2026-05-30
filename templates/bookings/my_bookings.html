@@ -2,26 +2,63 @@
 
 {% block content %}
 
-<h1>Мои билеты</h1>
+<h2>🎟 Мои билеты</h2>
+
+<div class="row">
 
 {% for b in bookings %}
 
-<div class="card p-3 mb-2">
+<div class="col-md-6 mb-3">
 
-    <h4>
-        {{ b.flight.departure_airport.city }}
-        →
-        {{ b.flight.arrival_airport.city }}
-    </h4>
+    <div class="card p-3">
 
-    <p>Цена: {{ b.flight.price }}</p>
+        <h5>
+            {{ b.flight.departure_airport.city }}
+            →
+            {{ b.flight.arrival_airport.city }}
+        </h5>
+
+        <p>💰 {{ b.flight.price }}</p>
+
+    </div>
 
 </div>
 
 {% empty %}
 
-<p>У вас нет билетов</p>
+<p>У вас пока нет билетов</p>
 
 {% endfor %}
 
+</div>
+
 {% endblock %}
+
+{% for b in bookings %}
+
+<div class="card p-3 mb-2">
+
+    <h5>
+        {{ b.flight.departure_airport.city }} → {{ b.flight.arrival_airport.city }}
+    </h5>
+
+    <p>💰 {{ b.flight.price }}</p>
+
+    <p>
+        Статус:
+        {% if b.status == 'active' %}
+            <span style="color:green;">Активный</span>
+        {% else %}
+            <span style="color:red;">Отменён</span>
+        {% endif %}
+    </p>
+
+    {% if b.status == 'active' %}
+    <a href="/bookings/cancel/{{ b.id }}/" class="btn btn-danger btn-sm">
+        Отменить
+    </a>
+    {% endif %}
+
+</div>
+
+{% endfor %}
