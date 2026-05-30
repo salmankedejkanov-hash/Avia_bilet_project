@@ -1,112 +1,38 @@
 from django.shortcuts import render, redirect
-
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
-
-from django.contrib.auth.views import LoginView, LogoutView
-
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-
-
-@login_required
-def profile(request):
-
-    return render(
-        request,
-        'accounts/profile.html'
-    )
-
-class CustomLoginView(LoginView):
-
-    template_name = 'accounts/login.html'
-
-
-class CustomLogoutView(LogoutView):
-
-    next_page = '/'
+from django.contrib import messages
 
 
 def register_view(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("flight_list")
+    else:
+        form = UserCreationForm()
 
-    form = UserCreationForm(
-        request.POST or None
-    )
-
-    if form.is_valid():
-
-        form.save()
-
-        return redirect(
-            'login'
-        )
-
-    context = {
-        'form': form
-    }
-
-    return render(
-        request,
-        'accounts/register.html',
-        context
-    )
+    return render(request, "accounts/register.html", {"form": form})
 
 
-@login_required
-def profile_view(request):
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
 
-    return render(
-        request,
-        'accounts/profile.html'
-    )
-from django.shortcuts import render, redirect
+        user = authenticate(request, username=username, password=password)
 
-from django.contrib.auth.views import LoginView, LogoutView
+        if user is not None:
+            login(request, user)
+            return redirect("flight_list")
+        else:
+            messages.error(request, "Неверный логин или пароль")
 
-from django.contrib.auth.decorators import login_required
-
-from .forms import RegisterForm
-
-
-class CustomLoginView(LoginView):
-
-    template_name = 'accounts/login.html'
+    return render(request, "accounts/login.html")
 
 
-class CustomLogoutView(LogoutView):
-
-    next_page = '/'
-
-
-def register_view(request):
-
-    form = RegisterForm(
-        request.POST or None
-    )
-
-    if form.is_valid():
-
-        form.save()
-
-        return redirect(
-            'login'
-        )
-
-    context = {
-        'form': form
-    }
-
-    return render(
-        request,
-        'accounts/register.html',
-        context
-    )
-
-
-@login_required
-def profile_view(request):
-
-    return render(
-        request,
-        'accounts/profile.html'
-    )
+def logout_view(request):
+    logout(request)
+    return redirect("login")

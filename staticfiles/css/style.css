@@ -1,0 +1,146 @@
+body {
+
+    background: #f4f7fb;
+
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+
+    font-size: 24px;
+
+    font-weight: bold;
+}
+
+.card {
+
+    border: none;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    transition: 0.3s ease;
+}
+
+.card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+.btn {
+
+    border-radius: 12px;
+}
+
+.hero-section {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #6610f2
+        );
+
+    color: white;
+
+    border-radius: 30px;
+
+    padding: 100px 60px;
+
+    margin-bottom: 40px;
+}
+
+.hero-title {
+
+    font-size: 60px;
+
+    font-weight: bold;
+}
+
+.hero-text {
+
+    font-size: 22px;
+
+    opacity: 0.9;
+}
+
+.flight-price {
+
+    font-size: 34px;
+
+    font-weight: bold;
+
+    color: #198754;
+}
+
+.animation-fade {
+
+    animation: fadeIn 1s ease;
+}
+
+.search-box {
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.08);
+}
+
+.section-title {
+
+    font-size: 40px;
+
+    font-weight: bold;
+
+    margin-bottom: 30px;
+}
+
+footer {
+
+    margin-top: 100px;
+}
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(30px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+.form-control {
+
+    border-radius: 12px;
+
+    padding: 12px;
+}
+
+input {
+
+    margin-bottom: 15px;
+}
+
+select {
+
+    margin-bottom: 15px;
+}

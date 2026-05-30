@@ -4,6 +4,7 @@ from airlines.models import Airline
 from airports.models import Airport
 
 
+
 class Flight(models.Model):
 
     airline = models.ForeignKey(

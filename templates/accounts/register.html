@@ -1,42 +1,9 @@
-{% extends 'base.html' %}
+<h2>Регистрация</h2>
 
-{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зарегистрироваться</button>
+</form>
 
-<div class="row justify-content-center">
-
-    <div class="col-md-6">
-
-        <div class="card shadow-lg border-0 animation-fade">
-
-            <div class="card-body p-5">
-
-                <h1 class="text-center mb-4">
-
-                    Create Account
-
-                </h1>
-
-                <form method="post">
-
-                    {% csrf_token %}
-
-                    {{ form.as_p }}
-
-                    <button
-                        type="submit"
-                        class="btn btn-success w-100 btn-lg"
-                    >
-                        Register
-                    </button>
-
-                </form>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-{% endblock %}
+<a href="/accounts/login/">Уже есть аккаунт? Войти</a>

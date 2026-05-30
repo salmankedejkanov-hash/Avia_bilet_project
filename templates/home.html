@@ -52,3 +52,34 @@
 </div>
 
 {% endblock %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flights</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-4">
+
+<h1>Поиск рейсов ✈️</h1>
+
+<form method="get" class="mb-4">
+    <input name="origin" placeholder="Откуда" class="form-control mb-2">
+    <input name="destination" placeholder="Куда" class="form-control mb-2">
+    <button class="btn btn-primary">Поиск</button>
+</form>
+
+<hr>
+
+{% for flight in flights %}
+    <div class="card p-3 mb-2">
+        <h4>{{ flight.origin }} → {{ flight.destination }}</h4>
+        <p>Цена: {{ flight.price }} $</p>
+    </div>
+{% empty %}
+    <p>Рейсы не найдены</p>
+{% endfor %}
+
+</body>
+</html>

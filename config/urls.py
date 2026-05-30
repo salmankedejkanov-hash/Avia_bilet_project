@@ -19,7 +19,7 @@ urlpatterns = [
 
     # HOME PAGE
     path('', home, name='home'),
-
+    path("bookings/", include("bookings.urls")),
     # APPS
     path('flights/', include('flights.urls')),
     path('bookings/', include('bookings.urls')),
@@ -27,4 +27,11 @@ urlpatterns = [
 
     # API
     path('api/', include(router.urls)),
+    path('', include('flights.urls')),
+    path('admin/', admin.site.urls),
+    path('flights/', include('flights.urls')),
+    path('admin/', admin.site.urls),
+    path('flights/', include('flights.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('bookings/', include('bookings.urls')),
 ]

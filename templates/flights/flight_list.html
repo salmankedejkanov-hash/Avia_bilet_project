@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-3">✈ Список рейсов</h2>
+
+<!-- SEARCH -->
+<div class="mb-3">
+    <input id="origin" class="form-control mb-2" placeholder="Откуда">
+    <input id="destination" class="form-control mb-2" placeholder="Куда">
+    <input id="max_price" class="form-control mb-2" placeholder="Макс цена">
+</div>
+
+<!-- RESULTS -->
+<div id="results"></div>
+
+<!-- MODAL -->
+<div class="modal fade" id="bookModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+
+      <h5 id="modalTitle"></h5>
+
+      <button id="confirmBtn" class="btn btn-success mt-3 btn-anim">
+        Подтвердить бронь
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<!-- LOADER -->
+<div id="loader" style="display:none;" class="text-center mt-3">
+    <div class="spinner-border text-primary"></div>
+    <p>Оформляем бронь...</p>
+</div>
+
+<!-- PLANE ANIMATION -->
+<div id="plane" style="display:none; position:fixed; top:50%; left:-100px; font-size:40px;">
+✈
+</div>
+
+<script>
+let selectedFlightId = null;
+
+// LOAD FLIGHTS
+async function loadFlights() {
+    let origin = document.getElementById("origin").value;
+    let destination = document.getElementById("destination").value;
+    let max_price = document.getElementById("max_price").value;
+
+    let url = `/flights/api/search/?origin=${origin}&destination=${destination}&max_price=${max_price}`;
+
+    let res = await fetch(url);
+    let data = await res.json();
+
+    let html = "";
+
+    data.flights.forEach((f, index) => {
+        html += `
+            <div class="card p-3 mb-3 fade-in" style="animation-delay:${index * 0.1}s">
+                <h4>${f.origin} → ${f.destination}</h4>
+                <p>Цена: ${f.price} $</p>
+
+                <button class="btn btn-success btn-anim"
+                    onclick="openModal(${f.id}, '${f.origin} → ${f.destination}')">
+                    Забронировать
+                </button>
+            </div>
+        `;
+    });
+
+    document.getElementById("results").innerHTML = html;
+}
+
+// OPEN MODAL
+function openModal(id, text) {
+    selectedFlightId = id;
+
+    document.getElementById("modalTitle").innerText =
+        "Забронировать: " + text;
+
+    new bootstrap.Modal(document.getElementById('bookModal')).show();
+}
+
+// CONFIRM BOOKING
+document.getElementById("confirmBtn").addEventListener("click", async function () {
+
+    document.getElementById("loader").style.display = "block";
+
+    let res = await fetch(`/bookings/book/${selectedFlightId}/`);
+
+    document.getElementById("loader").style.display = "none";
+
+    bootstrap.Modal.getInstance(document.getElementById('bookModal')).hide();
+
+    // PLANE ANIMATION
+    let plane = document.getElementById("plane");
+    plane.style.display = "block";
+    plane.style.left = "-100px";
+
+    let pos = -100;
+
+    let anim = setInterval(() => {
+        pos += 15;
+        plane.style.left = pos + "px";
+
+        if (pos > window.innerWidth) {
+            clearInterval(anim);
+            plane.style.display = "none";
+        }
+    }, 20);
+
+    alert("Бронь создана!");
+});
+
+// LIVE SEARCH
+document.addEventListener("input", loadFlights);
+
+// INIT
+loadFlights();
+</script>
+
+{% endblock %}
